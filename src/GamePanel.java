@@ -2,14 +2,17 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class GamePanel extends JPanel implements KeyListener {
+public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	Timer timer;
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
@@ -18,6 +21,9 @@ public class GamePanel extends JPanel implements KeyListener {
 	int currentSTATE = MENU_STATE;
 	Font titleFont = new Font("Arial", Font.PLAIN, 48);
 	Font description = new Font("Arial", Font.PLAIN, 30);
+public GamePanel() {
+
+} 
 
 	public void paintComponent(Graphics g) {
 		if (currentSTATE == MENU_STATE) {
@@ -26,9 +32,11 @@ public class GamePanel extends JPanel implements KeyListener {
 			drawGameState(g);
 
 		} else if (currentSTATE == END_STATE) {
-			drawEndState(g);}
-
+			drawEndState(g);
 		}
+
+	}
+
 	public void actionPerformed(ActionEvent e) {
 
 		repaint();
@@ -44,20 +52,23 @@ public class GamePanel extends JPanel implements KeyListener {
 		}
 
 	}
+
 	void drawMenuState(Graphics g) {
-		g.setColor(Color.RED);
+		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, EmuHunt.width, EmuHunt.height);
 		g.setColor(Color.BLACK);
 		g.setFont(titleFont);
 		g.drawString("Emu Hunt", 100, 200);
 		g.setFont(description);
 		g.drawString("Press ENTER To start", 100, 400);
-		g.drawString("Press SPACE To start", 100, 600);
 
 	}
+
 	ObjectManager om = new ObjectManager();
+
 	void drawGameState(Graphics g) {
-		g.drawImage(GamePanel.spaceImg, 0, 0, EmuHunt.width, EmuHunt.height, null);
+		g.setColor(Color.CYAN);
+		g.fillRect(0, 0, EmuHunt.width, EmuHunt.height);
 		om.draw(g);
 
 	}
@@ -88,28 +99,31 @@ public class GamePanel extends JPanel implements KeyListener {
 	void updateEndState() {
 
 	}
+
 	void startGame() {
+		timer = new Timer(1000 / 60, this);
 		timer.start();
 	}
-	
-	
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 	}
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
+
 		if (e.getKeyCode() == 10) {
-		
+			System.out.println("hi");
+			currentSTATE++;
 			if (currentSTATE > END_STATE) {
 				currentSTATE = MENU_STATE;
 			}
-			currentSTATE++;
 
 		}
 	}
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub

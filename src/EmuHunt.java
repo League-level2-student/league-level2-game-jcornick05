@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class EmuHunt {
-	JFrame frame;
+	public static JFrame frame;
 	final static int width = 500;
 	final static int height = 800;
 	GamePanel gp;
