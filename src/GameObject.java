@@ -15,10 +15,11 @@ public class GameObject {
     	this.width=width;
     	this.height=height;
         collisionBox = new Rectangle(x,y,width,height);
-                                      
+
     }
     void update() {
 collisionBox.setBounds(x,y,width,height);
+
     }
     void draw(Graphics g) {
   

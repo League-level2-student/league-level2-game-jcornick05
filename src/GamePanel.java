@@ -19,9 +19,9 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	final int END_STATE = 2;
 	public static BufferedImage spaceImg;
 	int currentSTATE = MENU_STATE;
-	Font titleFont = new Font("Arial", Font.PLAIN, 48);
-	Font description = new Font("Arial", Font.PLAIN, 30);
-public GamePanel() {
+	Font titleFont = new Font("LucidaSansTypewriter", Font.PLAIN, 48);
+	Font description = new Font("Dialog", Font.PLAIN, 30);
+public GamePanel() { 
 
 } 
 
@@ -58,9 +58,9 @@ public GamePanel() {
 		g.fillRect(0, 0, EmuHunt.width, EmuHunt.height);
 		g.setColor(Color.BLACK);
 		g.setFont(titleFont);
-		g.drawString("Emu Hunt", 100, 200);
+		g.drawString("Emu Hunt", 400, 300);
 		g.setFont(description);
-		g.drawString("Press ENTER To start", 100, 400);
+		g.drawString("Press ENTER To start", 380, 500);
 
 	}
 
@@ -78,9 +78,9 @@ public GamePanel() {
 		g.fillRect(0, 0, EmuHunt.width, EmuHunt.height);
 		g.setColor(Color.BLACK);
 		g.setFont(titleFont);
-		g.drawString("GAME OVER!!", 100, 300);
+		g.drawString("GAME OVER!!", 400, 300);
 
-		g.drawString("You killed " + om.score + "", 100, 500);
+		g.drawString("You killed " + om.score + "", 380, 500);
 
 	}
 

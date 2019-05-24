@@ -17,6 +17,9 @@ Point frame = EmuHunt.frame.getLocation();
 clicked = new Point((int)(mouse.getX()-frame.getX()),(int)(mouse.getY()-frame.getY()));
 targetX=(int) clicked.getX();
 targetY=(int) clicked.getY();
+
+
+
 }
 
 }

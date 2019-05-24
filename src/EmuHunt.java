@@ -5,8 +5,8 @@ import javax.swing.JPanel;
 
 public class EmuHunt {
 	public static JFrame frame;
-	final static int width = 500;
-	final static int height = 800;
+	final static int width = 1000;
+	final static int height = 1000;
 	GamePanel gp;
 	
 	public static void main(String[] args) {
