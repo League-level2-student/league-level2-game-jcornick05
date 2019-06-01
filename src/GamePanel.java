@@ -70,7 +70,20 @@ public GamePanel() {
 		g.setColor(Color.CYAN);
 		g.fillRect(0, 0, EmuHunt.width, EmuHunt.height);
 		om.draw(g);
-
+		g.setColor(new Color(40,90,40));
+		g.fillRect(0, 700, 1000, 300);
+		om.draw(g);
+		g.setColor(Color.white);
+		g.fillOval(120, 100, 150, 100);
+		g.fillOval(900, 50, 150, 100);
+		g.fillOval(450, 200, 150, 100);
+		g.setColor(new Color(40,100,40));
+		g.fillOval(-10, 600, 120, 130);
+		g.fillOval(900, 600, 120, 130);
+		g.setColor(Color.RED);
+		g.drawOval(Target.targetX-15, Target.targetY-35, 30, 30);
+		
+		
 	}
 
 	void drawEndState(Graphics g) {
@@ -93,6 +106,7 @@ public GamePanel() {
 		om.manageEnemies();
 		om.checkCollision();
 		om.purgeObjects();
+		
 
 	}
 
