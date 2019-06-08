@@ -4,8 +4,8 @@ import java.awt.Point;
 public class Target {
 	static int targetX;
 	static int targetY;
-	int targetWidth = 25;
-	int targetHeight = 20;
+	static int targetWidth = 22;
+	static int targetHeight = 20;
 static Point clicked;
 	public Target() {
 

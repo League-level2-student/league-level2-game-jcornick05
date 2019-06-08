@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -17,7 +18,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
-	public static BufferedImage spaceImg;
+	
 	int currentSTATE = MENU_STATE;
 	Font titleFont = new Font("LucidaSansTypewriter", Font.PLAIN, 48);
 	Font description = new Font("Dialog", Font.PLAIN, 30);
@@ -67,12 +68,12 @@ public GamePanel() {
 	ObjectManager om = new ObjectManager();
 
 	void drawGameState(Graphics g) {
+
 		g.setColor(Color.CYAN);
 		g.fillRect(0, 0, EmuHunt.width, EmuHunt.height);
-		om.draw(g);
+	
 		g.setColor(new Color(40,90,40));
 		g.fillRect(0, 700, 1000, 300);
-		om.draw(g);
 		g.setColor(Color.white);
 		g.fillOval(120, 100, 150, 100);
 		g.fillOval(900, 50, 150, 100);
@@ -81,8 +82,11 @@ public GamePanel() {
 		g.fillOval(-10, 600, 120, 130);
 		g.fillOval(900, 600, 120, 130);
 		g.setColor(Color.RED);
-		g.drawOval(Target.targetX-15, Target.targetY-35, 30, 30);
-		
+		g.drawOval(Target.targetX-15, Target.targetY-35, Target.targetHeight, Target.targetWidth);
+				om.draw(g);
+				
+				JLabel j= new JLabel("om.score");
+
 		
 	}
 
@@ -103,10 +107,9 @@ public GamePanel() {
 
 	void updateGameState() {
 		om.update();
-		om.manageEnemies();
 		om.checkCollision();
 		om.purgeObjects();
-		
+		om.manageEnemies();
 
 	}
 
@@ -117,6 +120,7 @@ public GamePanel() {
 	void startGame() {
 		timer = new Timer(1000 / 60, this);
 		timer.start();
+	
 	}
 
 	@Override

@@ -2,8 +2,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class GameObject {
-	int x=1;
-    int y=1;
+	static int x=1;
+    static int y=1;
     int width;
     int height;
     boolean isAlive=true;
