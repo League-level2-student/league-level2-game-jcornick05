@@ -4,10 +4,10 @@ import java.util.Random;
 
 public class ObjectManager {
 	long enemyTimer = 0;
-	int enemySpawnTime = 2000;
+	int enemySpawnTime = 2500;
 	int score = 0;
-	boolean isAlive=true;
-	ArrayList<GameObject> enemies = new ArrayList<GameObject>();
+	boolean isAlive = true;
+	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
 	public int scoreGetter() {
 		return score;
@@ -26,16 +26,19 @@ public class ObjectManager {
 	}
 
 	void purgeObjects() {
-if (isAlive==false) {
-	score++;
-	
-}
+		if (isAlive == false) {
+		score++;
+
+		}
 	}
 
 	public void checkCollision() {
-if (Target.targetX==Enemy.x && Target.targetY==Enemy.y) {
-	isAlive=false;
-}
+		for (int i = 0; i < enemies.size(); i++) {
+		
+		if (Target.targetX == enemies.get(i).getX() && Target.targetY == enemies.get(i).getY()) {
+			isAlive = false;
+		}
+		}
 	}
 
 	void update() {

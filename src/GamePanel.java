@@ -18,13 +18,14 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
-	
+
 	int currentSTATE = MENU_STATE;
 	Font titleFont = new Font("LucidaSansTypewriter", Font.PLAIN, 48);
 	Font description = new Font("Dialog", Font.PLAIN, 30);
-public GamePanel() { 
 
-} 
+	public GamePanel() {
+
+	}
 
 	public void paintComponent(Graphics g) {
 		if (currentSTATE == MENU_STATE) {
@@ -71,23 +72,21 @@ public GamePanel() {
 
 		g.setColor(Color.CYAN);
 		g.fillRect(0, 0, EmuHunt.width, EmuHunt.height);
-	
-		g.setColor(new Color(40,90,40));
+
+		g.setColor(new Color(40, 90, 40));
 		g.fillRect(0, 700, 1000, 300);
 		g.setColor(Color.white);
 		g.fillOval(120, 100, 150, 100);
 		g.fillOval(900, 50, 150, 100);
 		g.fillOval(450, 200, 150, 100);
-		g.setColor(new Color(40,100,40));
+		g.setColor(new Color(40, 100, 40));
 		g.fillOval(-10, 600, 120, 130);
 		g.fillOval(900, 600, 120, 130);
 		g.setColor(Color.RED);
-		g.drawOval(Target.targetX-15, Target.targetY-35, Target.targetHeight, Target.targetWidth);
-				om.draw(g);
-				
-				JLabel j= new JLabel("om.score");
+		g.drawOval(Target.targetX - 15, Target.targetY - 35, Target.targetHeight, Target.targetWidth);
 
-		
+		om.draw(g);
+
 	}
 
 	void drawEndState(Graphics g) {
@@ -120,7 +119,7 @@ public GamePanel() {
 	void startGame() {
 		timer = new Timer(1000 / 60, this);
 		timer.start();
-	
+
 	}
 
 	@Override

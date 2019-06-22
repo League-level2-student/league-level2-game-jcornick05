@@ -17,7 +17,7 @@ public class Enemy extends GameObject {
 		this.y = new Random().nextInt(901);
 		this.x = new Random().nextInt(2) * 1000;
 		if (this.x > 500) {
-speed=-speed;
+			speed = -speed;
 		}
 	}
 
@@ -26,9 +26,16 @@ speed=-speed;
 		g.fillRect(x, y, 15, 15);
 		if (x > 490 && x < 500) {
 			speed = -speed;
-			y += 20;
+			y += 6;
 		}
 		x += speed;
 		// System.out.println("enemy drawn");
 	}
+int getX() {
+	return x;
+}
+int getY() {
+	return y;
+}
+	 
 }
