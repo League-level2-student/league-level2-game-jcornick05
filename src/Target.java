@@ -1,7 +1,7 @@
 import java.awt.MouseInfo;
 import java.awt.Point;
 
-public class Target {
+public class Target extends GameObject {
 	static int targetX;
 	static int targetY;
 	static int targetWidth = 30;
@@ -9,10 +9,11 @@ public class Target {
 	static Point clicked;
 
 	public Target() {
-
+super(0,0,targetWidth, targetHeight);
 	}
 
-	public static void update() {
+	public void update() {
+		super.update();
 		Point mouse = MouseInfo.getPointerInfo().getLocation();
 		Point frame = EmuHunt.frame.getLocation();
 		clicked = new Point((int) (mouse.getX() - frame.getX()), (int) (mouse.getY() - frame.getY()));

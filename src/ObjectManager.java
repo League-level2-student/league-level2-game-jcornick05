@@ -7,7 +7,7 @@ public class ObjectManager {
 	int enemySpawnTime = 2500;
 	int score = 0;
 	boolean isAlive = true;
-	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
 	public int scoreGetter() {
 		return score;
@@ -22,27 +22,41 @@ public class ObjectManager {
 		for (int i = 0; i < enemies.size(); i++) {
 			enemies.get(i).draw(g);
 		}
-		System.out.println(enemies.size());
+		// System.out.println(enemies.size());
 	}
 
 	void purgeObjects() {
-		if (isAlive == false) {
-		score++;
-
+		for (int i = 0; i < enemies.size(); i++) {
+			if (enemies.get(i).isAlive == false) {
+				enemies.remove(i);
+				score++;
+			}
 		}
 	}
 
 	public void checkCollision() {
 		for (int i = 0; i < enemies.size(); i++) {
-		
-		if (Target.targetX == enemies.get(i).getX() && Target.targetY == enemies.get(i).getY()) {
-			isAlive = false;
+if (Target.collisionBox) {
+	
+}
+//			if (Target.targetX >= enemies.get(i).getX() - 5 && Target.targetY >= enemies.get(i).getY() - 5
+//					&& (Target.targetX <= enemies.get(i).getX() + 5 && Target.targetY <= enemies.get(i).getY() + 5)) {
+//				enemies.get(i).isAlive = false;
+//				System.out.println("check");
+//			}
+			// System.out.println(enemies.get(i).getX());
 		}
-		}
+		// System.out.println(Target.targetX);
+		// System.out.println(Target.targetY);
+
 	}
 
 	void update() {
 		Target.update();
+	}
+
+	void remove(int y) {
+		enemies.remove(y);
 	}
 
 	public void manageEnemies() {
