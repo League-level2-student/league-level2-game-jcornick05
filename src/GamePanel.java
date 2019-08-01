@@ -22,9 +22,14 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	int currentSTATE = MENU_STATE;
 	Font titleFont = new Font("LucidaSansTypewriter", Font.PLAIN, 48);
 	Font description = new Font("Dialog", Font.PLAIN, 30);
-
+	public static BufferedImage Emu;
 	public GamePanel() {
-
+try {
+	Emu = ImageIO.read(this.getClass().getResourceAsStream("Emu-Large.png"));
+}
+catch (IOException e) {
+	e.printStackTrace();
+}
 	}
 
 	public void paintComponent(Graphics g) {
@@ -83,7 +88,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.fillOval(-10, 600, 120, 130);
 		g.fillOval(900, 600, 120, 130);
 		g.setColor(Color.RED);
-		g.drawOval(Target.targetX - 15, Target.targetY - 35, Target.targetHeight, Target.targetWidth);
+		g.drawOval(Target.targetX-5 , Target.targetY-5 , Target.targetHeight, Target.targetWidth);
+		
 
 		om.draw(g);
 

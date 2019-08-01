@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.Random;
 
 public class GameObject {
 	  int x = 1;
@@ -7,7 +8,7 @@ public class GameObject {
 	int width;
 	int height;
 	boolean isAlive = true;
-	Rectangle collisionBox;
+	 static Rectangle collisionBox;
 
 	public GameObject(int x, int y, int width, int height) {
 		this.x = x;
@@ -20,7 +21,9 @@ public class GameObject {
 
 	void update() {
 		collisionBox.setBounds(x, y, width, height);
-
+        if (ObjectManager.score>=12) {
+        	Enemy.rand = new Random().nextInt(3) +4;
+		}
 	}
 
 	void draw(Graphics g) {

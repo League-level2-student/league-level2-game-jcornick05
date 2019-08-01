@@ -12,7 +12,7 @@ public class Target extends GameObject {
 super(0,0,targetWidth, targetHeight);
 	}
 
-	public void update() {
+	public  void update() {
 		super.update();
 		Point mouse = MouseInfo.getPointerInfo().getLocation();
 		Point frame = EmuHunt.frame.getLocation();
