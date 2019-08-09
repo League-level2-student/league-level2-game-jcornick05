@@ -1,16 +1,24 @@
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ObjectManager extends Target {
+public class ObjectManager extends Target implements KeyListener {
 	long enemyTimer = 0;
-	int enemySpawnTime = 2500;
-	static int  score = 0;
+	static int enemySpawnTime = 2500;
+	static int score = 0;
 	boolean isAlive = true;
 	static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	int bullets = 60;
 
 	public int scoreGetter() {
 		return score;
+
+	}
+
+	void actionPerformed(ActionEvent f) {
 
 	}
 
@@ -30,28 +38,36 @@ public class ObjectManager extends Target {
 			if (enemies.get(i).isAlive == false) {
 				enemies.remove(i);
 				score++;
+				bullets+=10;
 			}
+
 		}
 	}
 
 	public void checkCollision() {
+
 		for (int i = 0; i < enemies.size(); i++) {
+
+
 
 			if (Target.targetX >= enemies.get(i).getX() - 5 && Target.targetY >= enemies.get(i).getY() - 5
 					&& (Target.targetX <= enemies.get(i).getX() + 5 && Target.targetY <= enemies.get(i).getY() + 5)) {
 				enemies.get(i).isAlive = false;
-				System.out.println("check");
+				// System.out.println("check");
 			}
-			 System.out.println(enemies.get(i).getX());
+
 		}
-		 System.out.println(Target.targetX);
-		 System.out.println(Target.targetY);
+		
+		// System.out.println(enemies.get(i).getX());
+
+		// System.out.println(Target.targetX);
+		// System.out.println(Target.targetY);
 
 	}
 
-	//public void update() {
-	//	Target.update();
-	//}
+	// public void update() {
+	// Target.update();
+	// }
 
 	void remove(int y) {
 		enemies.remove(y);
@@ -63,5 +79,29 @@ public class ObjectManager extends Target {
 
 			enemyTimer = System.currentTimeMillis();
 		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent f) {
+		// TODO Auto-generated method stub
+		System.out.println(f.getKeyCode());
+		if (f.getKeyCode()==32) {
+			bullets-=1;
+			checkCollision();
+			System.out.println(bullets);
+		}
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println(e.getKeyCode());
 	}
 }

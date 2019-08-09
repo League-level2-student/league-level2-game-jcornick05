@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
@@ -23,13 +24,15 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	Font titleFont = new Font("LucidaSansTypewriter", Font.PLAIN, 48);
 	Font description = new Font("Dialog", Font.PLAIN, 30);
 	public static BufferedImage Emu;
+	public static BufferedImage Crosshair;
+
 	public GamePanel() {
-try {
-	Emu = ImageIO.read(this.getClass().getResourceAsStream("Emu-Large.png"));
-}
-catch (IOException e) {
-	e.printStackTrace();
-}
+		try {
+			Emu = ImageIO.read(this.getClass().getResourceAsStream("Emu-Large.png"));
+			Crosshair = ImageIO.read(this.getClass().getResourceAsStream("Crosshair.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void paintComponent(Graphics g) {
@@ -68,7 +71,9 @@ catch (IOException e) {
 		g.drawString("Emu Hunt", 400, 300);
 		g.setFont(description);
 		g.drawString("Press ENTER To start", 380, 500);
-
+		g.drawString("Aim for the head!", 400, 400);
+		g.setColor(Color.WHITE);
+		g.drawString("Space:shoot    mouse:aim", 350, 740);
 	}
 
 	ObjectManager om = new ObjectManager();
@@ -88,9 +93,11 @@ catch (IOException e) {
 		g.fillOval(-10, 600, 120, 130);
 		g.fillOval(900, 600, 120, 130);
 		g.setColor(Color.RED);
-		g.drawOval(Target.targetX-5 , Target.targetY-5 , Target.targetHeight, Target.targetWidth);
-		
-
+		g.drawOval(Target.targetX - 5, Target.targetY - 5, Target.targetHeight, Target.targetWidth);
+		g.drawImage(Crosshair, Target.targetX - 10, Target.targetY - 10, 40, 40, null);
+		g.drawString("Score:"+ObjectManager.score+" ", 500, 50);
+		g.setColor(Color.BLACK);
+		g.drawString("Bullets: "+om.bullets, 900, 50);
 		om.draw(g);
 
 	}
@@ -102,24 +109,25 @@ catch (IOException e) {
 		g.setFont(titleFont);
 		g.drawString("GAME OVER!!", 400, 300);
 
-		g.drawString("You killed " + om.score + "", 380, 500);
+		g.drawString("You Captured " + ObjectManager.score + "!", 380, 500);
 
 	}
 
 	void updateMenuState() {
-
+    ObjectManager.enemies.clear();
 	}
 
 	void updateGameState() {
 		om.update();
-		om.checkCollision();
+		 //om.checkCollision();
+		//om.keyTyped(null);
 		om.purgeObjects();
 		om.manageEnemies();
 
 	}
 
 	void updateEndState() {
-
+		
 	}
 
 	void startGame() {
@@ -144,6 +152,14 @@ catch (IOException e) {
 				currentSTATE = MENU_STATE;
 			}
 
+		}
+		if (e.getKeyCode() == 61) {
+			System.out.println("hi");
+		}
+		//System.out.println(e.getKeyCode());
+		if (e.getKeyCode()==32) {
+			om.bullets--;
+			om.checkCollision();
 		}
 	}
 
