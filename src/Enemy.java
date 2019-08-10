@@ -10,13 +10,15 @@ public class Enemy extends GameObject {
 	int straightMovement = 1;
 	int wiggleMovement = 2;
 	static int rand = new Random().nextInt(2) +2;
+	
 public BufferedImage Emu=GamePanel.Emu;
 public BufferedImage Crosshair=GamePanel.Crosshair;
-
+//public BufferedImage explosion = GamePanel.explosion;
 	public Enemy(int x, int y, int width, int height, int movementType) {
 		super(x, y, width, height);
 		this.movementType = movementType;
-		speed = rand;
+	//	speed = rand;
+		speed=1;
 		this.y = new Random().nextInt(650);
 		this.x = new Random().nextInt(2) * 1000;
 		if (this.x > 500) {
@@ -25,8 +27,8 @@ public BufferedImage Crosshair=GamePanel.Crosshair;
 	}
 
 	public void draw(Graphics g) {
-		// g.setColor(Color.black);
-		// g.fillRect(x, y, 15, 15);
+		 g.setColor(Color.black);
+		 g.drawRect(x, y, width, height);
 		
 		g.drawImage(Emu, x, y,40,40, null);
 		if (x > 490 && x < 500) {

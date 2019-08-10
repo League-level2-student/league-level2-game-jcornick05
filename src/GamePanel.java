@@ -16,20 +16,22 @@ import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	Timer timer;
-	final int MENU_STATE = 0;
-	final int GAME_STATE = 1;
-	final int END_STATE = 2;
+	static final int MENU_STATE = 0;
+	static final int GAME_STATE = 1;
+	static final int END_STATE = 2;
 
-	int currentSTATE = MENU_STATE;
+	static int currentSTATE = MENU_STATE;
 	Font titleFont = new Font("LucidaSansTypewriter", Font.PLAIN, 48);
 	Font description = new Font("Dialog", Font.PLAIN, 30);
 	public static BufferedImage Emu;
 	public static BufferedImage Crosshair;
+	//public static BufferedImage explosion;
 
 	public GamePanel() {
 		try {
 			Emu = ImageIO.read(this.getClass().getResourceAsStream("Emu-Large.png"));
 			Crosshair = ImageIO.read(this.getClass().getResourceAsStream("Crosshair.png"));
+		//	explosion = ImageIO.read(this.getClass().getResourceAsStream("explosion.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -93,11 +95,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.fillOval(-10, 600, 120, 130);
 		g.fillOval(900, 600, 120, 130);
 		g.setColor(Color.RED);
-		g.drawOval(Target.targetX - 5, Target.targetY - 5, Target.targetHeight, Target.targetWidth);
-		g.drawImage(Crosshair, Target.targetX - 10, Target.targetY - 10, 40, 40, null);
-		g.drawString("Score:"+ObjectManager.score+" ", 500, 50);
+		g.drawOval(Target.targetX -15 , Target.targetY - 14, Target.targetWidth, Target.targetHeight);
+		g.drawRect(Target.targetX-1, Target.targetY-1, 3, 3);
+		g.drawImage(Crosshair, Target.targetX - 19, Target.targetY - 19, 40, 40, null);
+		g.drawString("Score:" + ObjectManager.score + " ", 500, 50);
 		g.setColor(Color.BLACK);
-		g.drawString("Bullets: "+om.bullets, 900, 50);
+		g.drawString("Bullets: " + om.bullets, 900, 50);
 		om.draw(g);
 
 	}
@@ -114,20 +117,20 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	}
 
 	void updateMenuState() {
-    ObjectManager.enemies.clear();
+		ObjectManager.enemies.clear();
 	}
 
 	void updateGameState() {
 		om.update();
-		 //om.checkCollision();
-		//om.keyTyped(null);
+		// om.checkCollision();
+		// om.keyTyped(null);
 		om.purgeObjects();
 		om.manageEnemies();
 
 	}
 
 	void updateEndState() {
-		
+
 	}
 
 	void startGame() {
@@ -140,6 +143,13 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 	}
+
+	
+void drawBullet(Graphics f) {
+		// TODO Auto-generated method stub
+		//f.drawImage(explosion, Target.targetX-10, Target.targetY-10, 20, 20, null);
+	}
+	
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -156,10 +166,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		if (e.getKeyCode() == 61) {
 			System.out.println("hi");
 		}
-		//System.out.println(e.getKeyCode());
-		if (e.getKeyCode()==32) {
+		// System.out.println(e.getKeyCode());
+		if (e.getKeyCode() == 32) {
 			om.bullets--;
 			om.checkCollision();
+			
+
 		}
 	}
 

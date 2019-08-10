@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -13,9 +15,18 @@ public class ObjectManager extends Target implements KeyListener {
 	static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	int bullets = 60;
 
+	public ObjectManager() {
+		hitbox=new Rectangle(20,20,20,20);
+	}
 	public int scoreGetter() {
 		return score;
 
+	}
+
+	public void updateEnemies() {
+		for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).update();
+		}
 	}
 
 	void actionPerformed(ActionEvent f) {
@@ -30,6 +41,8 @@ public class ObjectManager extends Target implements KeyListener {
 		for (int i = 0; i < enemies.size(); i++) {
 			enemies.get(i).draw(g);
 		}
+		g.setColor(Color.magenta);
+		g.drawRect(Target.hitbox.x, Target.hitbox.y, Target.hitbox.width, Target.hitbox.height);
 		// System.out.println(enemies.size());
 	}
 
@@ -38,7 +51,7 @@ public class ObjectManager extends Target implements KeyListener {
 			if (enemies.get(i).isAlive == false) {
 				enemies.remove(i);
 				score++;
-				bullets+=10;
+				bullets += 10;
 			}
 
 		}
@@ -48,16 +61,20 @@ public class ObjectManager extends Target implements KeyListener {
 
 		for (int i = 0; i < enemies.size(); i++) {
 
-
-
-			if (Target.targetX >= enemies.get(i).getX() - 5 && Target.targetY >= enemies.get(i).getY() - 5
-					&& (Target.targetX <= enemies.get(i).getX() + 5 && Target.targetY <= enemies.get(i).getY() + 5)) {
-				enemies.get(i).isAlive = false;
-				// System.out.println("check");
+//			if (Target.targetX >= enemies.get(i).getX() - 5 && Target.targetY >= enemies.get(i).getY() - 5
+//					&& (Target.targetX <= enemies.get(i).getX() + 5 && Target.targetY <= enemies.get(i).getY() + 5)) {
+//				enemies.get(i).isAlive = false;
+//				// System.out.println("check");
+//			}
+			if (Target.hitbox.intersects(enemies.get(i).collisionBox)) {
+				enemies.get(i).isAlive=false;
 			}
-
+			if (bullets == 0) {
+				GamePanel.currentSTATE = GamePanel.END_STATE;
+			}
+			
 		}
-		
+
 		// System.out.println(enemies.get(i).getX());
 
 		// System.out.println(Target.targetX);
@@ -85,8 +102,8 @@ public class ObjectManager extends Target implements KeyListener {
 	public void keyTyped(KeyEvent f) {
 		// TODO Auto-generated method stub
 		System.out.println(f.getKeyCode());
-		if (f.getKeyCode()==32) {
-			bullets-=1;
+		if (f.getKeyCode() == 32) {
+			bullets -= 1;
 			checkCollision();
 			System.out.println(bullets);
 		}
