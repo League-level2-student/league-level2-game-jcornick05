@@ -25,13 +25,13 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	Font description = new Font("Dialog", Font.PLAIN, 30);
 	public static BufferedImage Emu;
 	public static BufferedImage Crosshair;
-	//public static BufferedImage explosion;
+	public static BufferedImage explosion;
 
 	public GamePanel() {
 		try {
 			Emu = ImageIO.read(this.getClass().getResourceAsStream("Emu-Large.png"));
 			Crosshair = ImageIO.read(this.getClass().getResourceAsStream("Crosshair.png"));
-		//	explosion = ImageIO.read(this.getClass().getResourceAsStream("explosion.png"));
+		  	explosion = ImageIO.read(this.getClass().getResourceAsStream("explosion.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -73,9 +73,9 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.drawString("Emu Hunt", 400, 300);
 		g.setFont(description);
 		g.drawString("Press ENTER To start", 380, 500);
-		g.drawString("Aim for the head!", 400, 400);
+		//g.drawString("Aim for the head!", 400, 400);
 		g.setColor(Color.WHITE);
-		g.drawString("Space:shoot    mouse:aim", 350, 740);
+		g.drawString("To Shoot: spacebar    To Aim: mouse", 250, 740);
 	}
 
 	ObjectManager om = new ObjectManager();
@@ -97,9 +97,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.setColor(Color.RED);
 		g.drawOval(Target.targetX -15 , Target.targetY - 14, Target.targetWidth, Target.targetHeight);
 		g.drawRect(Target.targetX-1, Target.targetY-1, 3, 3);
-		g.drawImage(Crosshair, Target.targetX - 19, Target.targetY - 19, 40, 40, null);
+		
 		g.drawString("Score:" + ObjectManager.score + " ", 500, 50);
 		g.setColor(Color.BLACK);
+		g.drawImage(Crosshair, Target.targetX - 19, Target.targetY - 19, 40, 40, null);
 		g.drawString("Bullets: " + om.bullets, 900, 50);
 		om.draw(g);
 
@@ -122,15 +123,14 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
 	void updateGameState() {
 		om.update();
-		// om.checkCollision();
-		// om.keyTyped(null);
 		om.purgeObjects();
 		om.manageEnemies();
+		om.updateEnemies();
 
 	}
 
 	void updateEndState() {
-
+		ObjectManager.bullets=60;
 	}
 
 	void startGame() {
@@ -170,6 +170,7 @@ void drawBullet(Graphics f) {
 		if (e.getKeyCode() == 32) {
 			om.bullets--;
 			om.checkCollision();
+			om.addExplosions(new Explosion(Target.targetX,Target.targetY, 30, 30) );
 			
 
 		}

@@ -17,12 +17,13 @@ super(0,0,targetWidth, targetHeight);
 
 	public  void update() {
 		//super.update();
-		hitbox.setBounds(x-1, y-1, 3, 3);
+		
 		Point mouse = MouseInfo.getPointerInfo().getLocation();
 		Point frame = EmuHunt.frame.getLocation();
 		clicked = new Point((int) (mouse.getX() - frame.getX()), (int) (mouse.getY() - frame.getY()));
 		targetX = (int) clicked.getX();
 		targetY = (int) clicked.getY();
+		hitbox.setBounds(targetX-1, targetY-1, 3, 3);
 //System.out.println("58599525");
 	}
 

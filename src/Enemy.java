@@ -13,30 +13,36 @@ public class Enemy extends GameObject {
 	
 public BufferedImage Emu=GamePanel.Emu;
 public BufferedImage Crosshair=GamePanel.Crosshair;
-//public BufferedImage explosion = GamePanel.explosion;
+public BufferedImage explosion = GamePanel.explosion;
 	public Enemy(int x, int y, int width, int height, int movementType) {
 		super(x, y, width, height);
 		this.movementType = movementType;
-	//	speed = rand;
-		speed=1;
+		speed = rand;
+		//speed=1;
 		this.y = new Random().nextInt(650);
 		this.x = new Random().nextInt(2) * 1000;
 		if (this.x > 500) {
 			speed = -speed;
 		}
+		collisionBox.setBounds(this.x, this.y, width, height);
 	}
 
 	public void draw(Graphics g) {
 		 g.setColor(Color.black);
-		 g.drawRect(x, y, width, height);
+		 g.drawRect(collisionBox.x, collisionBox.y, collisionBox.width, collisionBox.height);
 		
-		g.drawImage(Emu, x, y,40,40, null);
+		g.drawImage(Emu, x, y,width,height, null);
+		
+		//System.out.println("enemy drawn");
+	}
+	public void update() {
+		super.update();
 		if (x > 490 && x < 500) {
 			speed = -speed;
 			y += 6;
 		}
 		x += speed;
-		//System.out.println("enemy drawn");
+	//	System.out.println("1234");
 	}
 
 	int getX() {

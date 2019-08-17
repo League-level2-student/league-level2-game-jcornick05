@@ -34,8 +34,9 @@ public class GameObject {
 		}
 		if (ObjectManager.score >= 35) {
 			Enemy.rand = new Random().nextInt(4) + 3;
-			ObjectManager.enemySpawnTime = 60;
+			ObjectManager.enemySpawnTime = 30;
 		}
+	//	System.out.println("happenighOUI fak");
 
 	}
 
