@@ -113,12 +113,14 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.setFont(titleFont);
 		g.drawString("GAME OVER!!", 400, 300);
 
-		g.drawString("You Captured " + ObjectManager.score + "!", 380, 500);
+		g.drawString("You Killed " + ObjectManager.score + "!", 380, 500);
 
 	}
 
 	void updateMenuState() {
 		ObjectManager.enemies.clear();
+		ObjectManager.score=0; 
+	ObjectManager.enemySpawnTime=2500;
 	}
 
 	void updateGameState() {
@@ -131,6 +133,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
 	void updateEndState() {
 		ObjectManager.bullets=60;
+		
 	}
 
 	void startGame() {
@@ -163,9 +166,9 @@ void drawBullet(Graphics f) {
 			}
 
 		}
-		if (e.getKeyCode() == 61) {
-			System.out.println("hi");
-		}
+//		if (e.getKeyCode() == 61) {
+//			System.out.println("hi");
+//		}
 		// System.out.println(e.getKeyCode());
 		if (e.getKeyCode() == 32) {
 			om.bullets--;
