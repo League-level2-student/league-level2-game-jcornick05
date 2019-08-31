@@ -30,7 +30,11 @@ public class ObjectManager extends Target implements KeyListener {
 			enemies.get(i).update();
 		}
 	}
-
+	public void updateExplosions() {
+		for (int i = 0; i < explosions.size(); i++) {
+			explosions.get(i).update();
+	}
+	}
 	void actionPerformed(ActionEvent f) {
 
 	}
@@ -46,6 +50,9 @@ public class ObjectManager extends Target implements KeyListener {
 	void draw(Graphics g) {
 		for (int i = 0; i < enemies.size(); i++) {
 			enemies.get(i).draw(g);
+		}
+		for (int i = 0; i < explosions.size(); i++) {
+			explosions.get(i).draw(g);
 		}
 		g.setColor(Color.magenta);
 		// g.drawRect(Target.hitbox.x, Target.hitbox.y, Target.hitbox.width,

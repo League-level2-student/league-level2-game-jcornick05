@@ -119,6 +119,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
 	void updateMenuState() {
 		ObjectManager.enemies.clear();
+		ObjectManager.enemies.clear();
 		ObjectManager.score=0; 
 	ObjectManager.enemySpawnTime=2500;
 	}
@@ -128,6 +129,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		om.purgeObjects();
 		om.manageEnemies();
 		om.updateEnemies();
+		om.updateExplosions();
 
 	}
 
@@ -174,7 +176,7 @@ void drawBullet(Graphics f) {
 			om.bullets--;
 			om.checkCollision();
 			om.addExplosions(new Explosion(Target.targetX,Target.targetY, 30, 30) );
-			
+		
 
 		}
 	}

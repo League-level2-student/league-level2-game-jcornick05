@@ -9,6 +9,7 @@ public class GameObject {
 	int height;
 	boolean isAlive = true;
 	Rectangle collisionBox;
+	int frameCount = 0;
 
 	public GameObject(int x, int y, int width, int height) {
 		this.x = x;
@@ -20,10 +21,12 @@ public class GameObject {
 	}
 
 	void update() {
+		frameCount++;
 		collisionBox.setBounds(x, y, width, height);
 		if (ObjectManager.score >= 12 && ObjectManager.score < 18) {
 			Enemy.rand = new Random().nextInt(3) + 4;
 			ObjectManager.enemySpawnTime = 2300;
+		//	ObjectManager.score = 48;
 		}
 		if (ObjectManager.score >= 18 && ObjectManager.score < 30) {
 			Enemy.rand = new Random().nextInt(6) + 3;
@@ -33,23 +36,32 @@ public class GameObject {
 			Enemy.rand = new Random().nextInt(7) + 4;
 			ObjectManager.enemySpawnTime = 1000;
 		}
-		if (ObjectManager.score >= 35 && ObjectManager.score < 49) {
+		if (ObjectManager.score >= 35 && ObjectManager.score < 48) {
 			Enemy.rand = new Random().nextInt(4) + 3;
 			ObjectManager.enemySpawnTime = 30;
 		}
-		if (ObjectManager.score >= 49 && ObjectManager.score<50) {
+		if (ObjectManager.score >= 48 && ObjectManager.score < 50) {
 			Enemy.rand = new Random().nextInt(4) + 3;
 			ObjectManager.enemySpawnTime = 2500;
-			ObjectManager.enemySpawnTime -=299;
+		//	System.out.println("nack");
+
 		}
+
 		if (ObjectManager.score >= 50) {
-			Enemy.rand+=1;
-			ObjectManager.enemySpawnTime -=299;
+			if (frameCount % 800 == 0) {
+				Enemy.rand++;
+			}
+			if (ObjectManager.enemySpawnTime >= 300 && frameCount % 90 == 0) {
+				ObjectManager.enemySpawnTime -= 299;
+			}
+			// System.out.println("happ");
 		}
-		if (Enemy.rand==15) {
-			Enemy.rand=15;
+
+		if (Enemy.rand >= 15) {
+			Enemy.rand = 4;
+			// System.out.println("bap");
 		}
-	//	System.out.println("happenighOUI");
+		// System.out.println("happenighOUI");
 
 	}
 
