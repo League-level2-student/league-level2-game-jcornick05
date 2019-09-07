@@ -2,12 +2,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ObjectManager extends Target implements KeyListener {
+import javax.swing.Timer;
+
+public class ObjectManager extends Target implements KeyListener, ActionListener {
 	long enemyTimer = 0;
 	static int enemySpawnTime = 2500;
 	static int score = 0;
@@ -30,14 +33,13 @@ public class ObjectManager extends Target implements KeyListener {
 			enemies.get(i).update();
 		}
 	}
+
 	public void updateExplosions() {
 		for (int i = 0; i < explosions.size(); i++) {
 			explosions.get(i).update();
+		}
 	}
-	}
-	void actionPerformed(ActionEvent f) {
 
-	}
 
 	void addEnemy(Enemy a) {
 		enemies.add(a);
@@ -69,6 +71,12 @@ public class ObjectManager extends Target implements KeyListener {
 			}
 
 		}
+		for (int i = 0; i < explosions.size(); i++) {
+			if (explosions.get(i).isAlive == false) {
+				removeExplosion(i);
+			}
+		}
+
 	}
 
 	public void checkCollision() {
@@ -88,6 +96,12 @@ public class ObjectManager extends Target implements KeyListener {
 			}
 
 		}
+		for (int j = 0; j < explosions.size(); j++) {
+		if (GameObject.frameCount % 2==0) {
+			explosions.get(j).isAlive=false;
+		}
+		
+		}
 
 		// System.out.println(enemies.get(i).getX());
 
@@ -105,7 +119,8 @@ public class ObjectManager extends Target implements KeyListener {
 	}
 
 	void removeExplosion(int a) {
-		explosions.remove(a);
+		
+		explosions.remove(explosions.get(a));
 	}
 
 	public void manageEnemies() {
@@ -138,5 +153,18 @@ public class ObjectManager extends Target implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println(e.getKeyCode());
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if (!explosions.isEmpty()) {
+		
+		explosions.remove(explosions.size()-1);
+		Timer t = (Timer)e.getSource();
+		t.stop();
+		//	System.out.println(e.getSource());
+			
+		}
 	}
 }

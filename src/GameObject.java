@@ -9,7 +9,7 @@ public class GameObject {
 	int height;
 	boolean isAlive = true;
 	Rectangle collisionBox;
-	int frameCount = 0;
+	static int frameCount = 0;
 
 	public GameObject(int x, int y, int width, int height) {
 		this.x = x;
@@ -26,7 +26,8 @@ public class GameObject {
 		if (ObjectManager.score >= 12 && ObjectManager.score < 18) {
 			Enemy.rand = new Random().nextInt(3) + 4;
 			ObjectManager.enemySpawnTime = 2300;
-		//	ObjectManager.score = 48;
+			
+		//	ObjectManager.score = 49;
 		}
 		if (ObjectManager.score >= 18 && ObjectManager.score < 30) {
 			Enemy.rand = new Random().nextInt(6) + 3;
@@ -48,9 +49,10 @@ public class GameObject {
 		}
 
 		if (ObjectManager.score >= 50) {
-			if (frameCount % 800 == 0) {
+			if (frameCount % 2000 == 0) {
 				Enemy.rand++;
 			}
+			ObjectManager.enemySpawnTime+=2;
 			if (ObjectManager.enemySpawnTime >= 300 && frameCount % 90 == 0) {
 				ObjectManager.enemySpawnTime -= 299;
 			}
