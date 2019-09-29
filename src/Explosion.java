@@ -1,7 +1,7 @@
 import java.awt.Graphics;
 
 public class Explosion extends GameObject {
-	float duration = 1000;
+	float duration = 10000;
 	float time;
 	float endTime;
 

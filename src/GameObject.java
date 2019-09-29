@@ -24,33 +24,35 @@ public class GameObject {
 		frameCount++;
 		collisionBox.setBounds(x, y, width, height);
 		if (ObjectManager.score >= 12 && ObjectManager.score < 18) {
-			Enemy.rand = new Random().nextInt(3) + 4;
+			Enemy.rand = new Random().nextInt(3) + 2;
 			ObjectManager.enemySpawnTime = 2300;
 			
-		//	ObjectManager.score = 49;
+		//	ObjectManager.score = 36;
 		}
 		if (ObjectManager.score >= 18 && ObjectManager.score < 30) {
-			Enemy.rand = new Random().nextInt(6) + 3;
+			Enemy.rand = new Random().nextInt(3) + 3;
 			ObjectManager.enemySpawnTime = 2000;
 		}
 		if (ObjectManager.score >= 30 && ObjectManager.score < 35) {
-			Enemy.rand = new Random().nextInt(7) + 4;
+			Enemy.rand = new Random().nextInt(4) + 4;
 			ObjectManager.enemySpawnTime = 1000;
 		}
 		if (ObjectManager.score >= 35 && ObjectManager.score < 48) {
-			Enemy.rand = new Random().nextInt(4) + 3;
+			Enemy.rand = new Random().nextInt(4) + 5;
 			ObjectManager.enemySpawnTime = 30;
+			
 		}
 		if (ObjectManager.score >= 48 && ObjectManager.score < 50) {
-			Enemy.rand = new Random().nextInt(4) + 3;
+			Enemy.rand = new Random().nextInt(5) + 6;
 			ObjectManager.enemySpawnTime = 2500;
 		//	System.out.println("nack");
 
 		}
+		
 
 		if (ObjectManager.score >= 50) {
 			if (frameCount % 2000 == 0) {
-				Enemy.rand++;
+				Enemy.rand+=10;
 			}
 			ObjectManager.enemySpawnTime+=2;
 			if (ObjectManager.enemySpawnTime >= 300 && frameCount % 90 == 0) {

@@ -17,7 +17,7 @@ public class ObjectManager extends Target implements KeyListener, ActionListener
 	boolean isAlive = true;
 	static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	ArrayList<Explosion> explosions = new ArrayList<Explosion>();
-	static int bullets = 60;
+	static int bullets = 40;
 
 	public ObjectManager() {
 		hitbox = new Rectangle(20, 20, 20, 20);
@@ -91,7 +91,7 @@ public class ObjectManager extends Target implements KeyListener, ActionListener
 			if (Target.hitbox.intersects(enemies.get(i).collisionBox)) {
 				enemies.get(i).isAlive = false;
 			}
-			if (bullets == 0) {
+			if (bullets <= -1) {
 				GamePanel.currentSTATE = GamePanel.END_STATE;
 			}
 
