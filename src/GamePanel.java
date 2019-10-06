@@ -31,7 +31,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	public static BufferedImage explosion;
 	public static BufferedImage cloud;
 	public static BufferedImage Bush;
-	Timer SplatTimer = new Timer(125, om);
+	//Timer SplatTimer = new Timer(125, om);
    Random rc = new Random();
 	public GamePanel() {
 		try {
@@ -116,7 +116,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.drawRect(Target.targetX - 1, Target.targetY - 1, 3, 3);
 		om.draw(g);
 		g.drawString("Score:" + ObjectManager.score + " ", 500, 50);
-		
+		g.drawString("Countdown: "+ Timer. ,250, 50);
+		//countdown 
 		if (om.score > 35 && om.score < 48) {
 			Color flash = new Color(rc.nextInt(255),rc.nextInt(255),rc.nextInt(255));
 			g.setColor(flash);
@@ -150,11 +151,13 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		om.manageEnemies();
 		om.updateEnemies();
 		om.updateExplosions();
+		timer.update();
 
 	}
 
 	void updateEndState() {
 		ObjectManager.bullets = 40;
+		ObjectManager.enemySpawnTime = 2500;
 
 	}
 
