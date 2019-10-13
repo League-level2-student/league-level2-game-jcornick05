@@ -96,12 +96,7 @@ public class ObjectManager extends Target implements KeyListener, ActionListener
 			}
 
 		}
-		for (int j = 0; j < explosions.size(); j++) {
-		if (GameObject.frameCount % 2==0) {
-			explosions.get(j).isAlive=false;
-		}
 		
-		}
 
 		// System.out.println(enemies.get(i).getX());
 

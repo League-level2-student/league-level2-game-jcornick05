@@ -17,6 +17,8 @@ import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	Timer timer;
+	Timer gameTimeTimer;
+	int gameTime=0;
 	static final int MENU_STATE = 0;
 	static final int GAME_STATE = 1;
 	static final int END_STATE = 2;
@@ -31,8 +33,9 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	public static BufferedImage explosion;
 	public static BufferedImage cloud;
 	public static BufferedImage Bush;
-	//Timer SplatTimer = new Timer(125, om);
-   Random rc = new Random();
+	// Timer SplatTimer = new Timer(125, om);
+	Random rc = new Random();
+
 	public GamePanel() {
 		try {
 			EmuRight = ImageIO.read(this.getClass().getResourceAsStream("Emu-largeCopy.png"));
@@ -59,19 +62,23 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == timer) {
 
-		repaint();
-		// System.out.println("action");
-		if (currentSTATE == MENU_STATE) {
-			updateMenuState();
-		} else if (currentSTATE == GAME_STATE) {
-			updateGameState();
+			repaint();
+			// System.out.println("action");
+			if (currentSTATE == MENU_STATE) {
+				updateMenuState();
+			} else if (currentSTATE == GAME_STATE) {
+				updateGameState();
 
-		} else if (currentSTATE == END_STATE) {
-			updateEndState();
+			} else if (currentSTATE == END_STATE) {
+				updateEndState();
 
+			}
+
+		}else {
+			gameTime++;
 		}
-
 	}
 
 	void drawMenuState(Graphics g) {
@@ -85,6 +92,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		// g.drawString("Aim for the head!", 400, 400);
 		g.setColor(Color.WHITE);
 		g.drawString("To Shoot: spacebar    To Aim: mouse", 250, 740);
+		g.drawString("If you don't shoot in 5 seconds you lose!!", 250, 100);
 	}
 
 	void drawGameState(Graphics g) {
@@ -116,7 +124,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.drawRect(Target.targetX - 1, Target.targetY - 1, 3, 3);
 		om.draw(g);
 		g.drawString("Score:" + ObjectManager.score + " ", 500, 50);
-		g.drawString("Countdown: "+ Timer. ,250, 50);
+		g.drawString("Game Time: " + gameTime  ,250, 50);
 		//countdown 
 		if (om.score > 35 && om.score < 48) {
 			Color flash = new Color(rc.nextInt(255),rc.nextInt(255),rc.nextInt(255));
@@ -143,28 +151,37 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		ObjectManager.enemies.clear();
 		ObjectManager.score = 0;
 		ObjectManager.enemySpawnTime = 2500;
+		gameTime=0;
 	}
 
 	void updateGameState() {
-		om.update();
-		om.purgeObjects();
+		om.update();	
 		om.manageEnemies();
+		
 		om.updateEnemies();
+		//om.checkCollision();	
 		om.updateExplosions();
-		timer.update();
+		om.purgeObjects();
+		
+		if (gameTime==5) {
+			currentSTATE = END_STATE;
+		}
 
 	}
 
 	void updateEndState() {
 		ObjectManager.bullets = 40;
 		ObjectManager.enemySpawnTime = 2500;
+		gameTime=0;
 
 	}
 
 	void startGame() {
 		timer = new Timer(1000 / 60, this);
 		timer.start();
-
+		gameTimeTimer = new Timer(1000, this);
+		gameTimeTimer.start();
+		gameTime=0;
 	}
 
 	@Override
@@ -187,6 +204,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 			if (currentSTATE > END_STATE) {
 				currentSTATE = MENU_STATE;
 			}
+			
 
 		}
 //		if (e.getKeyCode() == 61) {
@@ -195,14 +213,19 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		// System.out.println(e.getKeyCode());
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			om.bullets--;
-			om.checkCollision();
+			
 			om.addExplosions(new Explosion(Target.targetX -= 15, Target.targetY -= 15, 30, 30));
-			SplatTimer.start();
+			gameTime=0;
+			om.checkCollision();
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			om.explosions.clear();
+			}
+		}
 	}
-}
+
