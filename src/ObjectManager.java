@@ -17,7 +17,7 @@ public class ObjectManager extends Target implements KeyListener, ActionListener
 	boolean isAlive = true;
 	static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	ArrayList<Explosion> explosions = new ArrayList<Explosion>();
-	static int bullets = 40;
+	static int bullets = 30;
 
 	public ObjectManager() {
 		hitbox = new Rectangle(20, 20, 20, 20);

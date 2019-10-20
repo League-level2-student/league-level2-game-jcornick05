@@ -92,7 +92,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		// g.drawString("Aim for the head!", 400, 400);
 		g.setColor(Color.WHITE);
 		g.drawString("To Shoot: spacebar    To Aim: mouse", 250, 740);
-		g.drawString("If you don't shoot in 5 seconds you lose!!", 250, 100);
+		g.drawString("If The Red bar disappears you lose!!", 200, 100);
+		g.drawString("You have 30 bullets", 650, 50);
 	}
 
 	void drawGameState(Graphics g) {
@@ -117,14 +118,17 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		g.drawImage(cloud, 450, 200, 170, 120, null);
 		g.drawImage(Bush, -30, 600, 220, 200, null);
 		g.drawImage(Bush, 840, 600, 220, 200, null);
-
 		g.drawImage(Crosshair, Target.targetX - 19, Target.targetY - 19, 40, 40, null);
-		g.drawString("Bullets: " + om.bullets, 900, 50);
+		g.drawString("" + om.bullets, Target.targetX-30, Target.targetY-7);
 		g.drawOval(Target.targetX - 15, Target.targetY - 14, Target.targetWidth, Target.targetHeight);
 		g.drawRect(Target.targetX - 1, Target.targetY - 1, 3, 3);
+		g.setColor(Color.RED);
+		g.fillRect(Target.targetX+17, Target.targetY-18+gameTime/2, 15, 40-gameTime);
 		om.draw(g);
+		g.setColor(Color.darkGray);
 		g.drawString("Score:" + ObjectManager.score + " ", 500, 50);
-		g.drawString("Game Time: " + gameTime  ,250, 50);
+	
+		//g.drawString("Game Time: " + gameTime  ,250, 50);
 		//countdown 
 		if (om.score > 35 && om.score < 48) {
 			Color flash = new Color(rc.nextInt(255),rc.nextInt(255),rc.nextInt(255));
@@ -150,7 +154,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		ObjectManager.enemies.clear();
 		ObjectManager.enemies.clear();
 		ObjectManager.score = 0;
-		ObjectManager.enemySpawnTime = 2500;
+		Enemy.rand = new Random().nextInt(3) + 3;
+		om.enemySpawnTime=2500;
 		gameTime=0;
 	}
 
@@ -163,15 +168,15 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 		om.updateExplosions();
 		om.purgeObjects();
 		
-		if (gameTime==5) {
+		if (gameTime==40) {
 			currentSTATE = END_STATE;
 		}
 
 	}
 
 	void updateEndState() {
-		ObjectManager.bullets = 40;
-		ObjectManager.enemySpawnTime = 2500;
+		ObjectManager.bullets = 30;
+		//ObjectManager.score=0;
 		gameTime=0;
 
 	}
@@ -179,7 +184,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 	void startGame() {
 		timer = new Timer(1000 / 60, this);
 		timer.start();
-		gameTimeTimer = new Timer(1000, this);
+		gameTimeTimer = new Timer(1000 / 8, this);
 		gameTimeTimer.start();
 		gameTime=0;
 	}
